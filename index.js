@@ -5,11 +5,17 @@ const fetch = require('node-fetch')
 var m = null
 var bot = null
 
-function changeStatus(color, status){
+async function changeStatus(color, status){
   var e = new Discord.MessageEmbed()
   e.setTitle(`Null Status`)
   e.addField(`Status`,status)
   e.addField(`Last Updated`, `${new Date().getHours()}:${new Date().getMinutes()} RTZ (Repl Time Zone)`)
+  var r = await fetch('https://null-webhook.pdaniely.repl.co')
+  if(r.status == 404){
+    e.addField(`Webhook`, `The webhook is online`)
+  }else{
+    e.addField(`Webhook`, `There might by some problems with the webhook. `)
+  }
   e.setFooter(`Null has an 99.99% uptime`)
   e.setColor(color)
 
